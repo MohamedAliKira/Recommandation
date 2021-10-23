@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestion_Recommandation.Shar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestion_Recommandation.API", "Gestion_Recommandation.API\Gestion_Recommandation.API.csproj", "{ECAD0634-8849-49C6-A0DF-A82615BF89BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestion_Recommandation.Services", "Gestion_Recommandation.Services\Gestion_Recommandation.Services.csproj", "{0AB63E65-8868-4EC7-94B6-30232724A26B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ECAD0634-8849-49C6-A0DF-A82615BF89BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECAD0634-8849-49C6-A0DF-A82615BF89BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECAD0634-8849-49C6-A0DF-A82615BF89BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB63E65-8868-4EC7-94B6-30232724A26B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB63E65-8868-4EC7-94B6-30232724A26B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB63E65-8868-4EC7-94B6-30232724A26B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB63E65-8868-4EC7-94B6-30232724A26B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

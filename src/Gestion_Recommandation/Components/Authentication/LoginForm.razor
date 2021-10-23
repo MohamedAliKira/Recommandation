@@ -1,5 +1,5 @@
 ﻿@namespace Gestion_Recommandation.Components
-@*
+
 <EditForm Model="_model" OnValidSubmit="LoginUserAsync">
     <DataAnnotationsValidator />
 
@@ -11,8 +11,12 @@
         </MudCardHeader>
 
         <MudCardContent>
-            <MudTextField Label="Email" HelperText="Required" @bind-Value="@_model.Email" />
-            <MudTextField InputType="InputType.Password" Label="Password" HelperText="Required" @bind-Value="@_model.Password" />
+            <MudTextField @bind-Value="@_model.Email" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.Start" 
+                AdornmentIcon="@Icons.Material.Filled.Email" />
+
+            <MudTextField @bind-Value="@_model.Password" Label="Mot de passe" Variant="Variant.Outlined" InputType="@PasswordInput" 
+                Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" />
+
             <br />
             <ValidationSummary />
             @if (!string.IsNullOrWhiteSpace(_errorMessage))
@@ -36,13 +40,12 @@
                 }
                 
             </MudButton>
-            @if (IsAdministrator)
-            {
+            @*@if (IsAdministrator)
+            {*@
                 <MudButton Variant="Variant.Outlined" Color="Color.Secondary" Class="ml-1" 
                     OnClick="RedirectToRegister" Disabled="_isBusy">Nouveau Compte</MudButton>
-            }            
+            @*}*@            
         </MudCardActions>
     </MudCard>
 
 </EditForm>
-*@

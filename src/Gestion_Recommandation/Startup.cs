@@ -1,3 +1,5 @@
+using Blazored.LocalStorage;
+using Gestion_Recommandation.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +11,7 @@ using MudBlazor.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Gestion_Recommandation
@@ -29,6 +32,14 @@ namespace Gestion_Recommandation
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddMudServices();
+            services.AddHttpClientServices();
+
+            services.AddHttpClient("Gestion_Recommandation.Api", client => {
+                client.BaseAddress = new Uri(Configuration["PathApi"]);
+            }).AddHttpMessageHandler<AuthorizationMessageHandler>();
+            services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("Gestion_Recommandation.Api"));
+            services.AddTransient<AuthorizationMessageHandler>();
+            services.AddBlazoredLocalStorage();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

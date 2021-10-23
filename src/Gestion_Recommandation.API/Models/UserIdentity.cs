@@ -7,6 +7,5 @@ namespace Gestion_Recommandation.API.Models
         public string Matricule { get; set; }
         public string Bureau { get; set; }
         public string FirstName { get; set; }
-        public string LastName { get; set; }
     }
 }

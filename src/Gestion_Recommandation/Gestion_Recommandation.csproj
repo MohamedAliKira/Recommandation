@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gestion_Recommandation.Services\Gestion_Recommandation.Services.csproj" />
     <ProjectReference Include="..\Gestion_Recommandation.Shared\Gestion_Recommandation.Shared.csproj" />
   </ItemGroup>
 

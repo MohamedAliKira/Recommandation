@@ -1,0 +1,48 @@
+﻿@namespace Gestion_Recommandation.Components
+@*
+<EditForm Model="_model" OnValidSubmit="LoginUserAsync">
+    <DataAnnotationsValidator />
+
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Bienvenue dans la Gestion des RECOMMNDATIONS</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+
+        <MudCardContent>
+            <MudTextField Label="Email" HelperText="Required" @bind-Value="@_model.Email" />
+            <MudTextField InputType="InputType.Password" Label="Password" HelperText="Required" @bind-Value="@_model.Password" />
+            <br />
+            <ValidationSummary />
+            @if (!string.IsNullOrWhiteSpace(_errorMessage))
+            {
+                <MudAlert Severity="Severity.Error" Class="my-2" Variant="Variant.Filled">
+                    @_errorMessage
+                </MudAlert>
+            }            
+        </MudCardContent>
+
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="_isBusy">
+                @if (_isBusy)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                    <MudText Class="ms-2">Conexion en cours</MudText>
+                }
+                else
+                {
+                    <MudText>Se connecter</MudText>
+                }
+                
+            </MudButton>
+            @if (IsAdministrator)
+            {
+                <MudButton Variant="Variant.Outlined" Color="Color.Secondary" Class="ml-1" 
+                    OnClick="RedirectToRegister" Disabled="_isBusy">Nouveau Compte</MudButton>
+            }            
+        </MudCardActions>
+    </MudCard>
+
+</EditForm>
+*@

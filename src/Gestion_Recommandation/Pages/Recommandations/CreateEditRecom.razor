@@ -1,0 +1,13 @@
+﻿@page "/recommandation/form"
+@page "/recommandation/form/{Id}"
+@namespace Gestion_Recommandation.Pages
+
+<RecomPage BreadcrumbItems="_breadcrumbItems" Title="Ajouter / Modifier une Recommandation">
+    <MudGrid>
+        <MudItem lg="6" md="8" sm="12">
+            <RecomForm Id="@Id"/>
+        </MudItem>
+    </MudGrid>
+</RecomPage>
+
+

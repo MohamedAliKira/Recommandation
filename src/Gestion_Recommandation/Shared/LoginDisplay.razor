@@ -9,7 +9,8 @@
         <MudMenu FullWidth="true">
             <ActivatorContent>
                 <MudChip Icon="@Icons.Material.Filled.Person" Color="Color.Primary" Direction="Direction.Left" OffsetY="true">
-                    Welcome @context.User.FindFirst(ClaimTypes.GivenName).Value !
+                    Welcome @context.User.Claims.Where(c => c.Type == "Identite").Select(c => c.Value).SingleOrDefault() 
+                    (@context.User.Claims.Where(c => c.Type == "Bureau").Select(c => c.Value).SingleOrDefault()) !
                 </MudChip>
             </ActivatorContent>
             <ChildContent>

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System;
+using Microsoft.AspNetCore.Components.Server;
 
 namespace Gestion_Recommandation
 {
@@ -15,9 +16,11 @@ namespace Gestion_Recommandation
         {
             _storage = storage;
         }
+
+        
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            if(await _storage.ContainKeyAsync("access_token"))
+            if (await _storage.ContainKeyAsync("access_token"))
             {
                 var tokenAsString = await _storage.GetItemAsStringAsync("access_token");
                 var tokenHandler = new JwtSecurityTokenHandler();
@@ -26,7 +29,7 @@ namespace Gestion_Recommandation
                 var user = new ClaimsPrincipal(identity);
                 var authState = new AuthenticationState(user);
                 NotifyAuthenticationStateChanged(Task.FromResult(authState));
-                Console.WriteLine("GetAuthenticationStateAsync Called");
+                
                 return authState;
             }
             return new AuthenticationState(new ClaimsPrincipal());

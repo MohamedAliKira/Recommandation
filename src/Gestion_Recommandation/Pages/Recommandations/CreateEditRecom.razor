@@ -1,6 +1,7 @@
 ﻿@page "/recommandation/form"
 @page "/recommandation/form/{Id}"
 @namespace Gestion_Recommandation.Pages
+@attribute [Authorize]
 
 <RecomPage BreadcrumbItems="_breadcrumbItems" Title="Ajouter / Modifier une Recommandation">
     <MudGrid>

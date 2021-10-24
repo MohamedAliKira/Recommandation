@@ -2,6 +2,7 @@ using Blazored.LocalStorage;
 using Gestion_Recommandation.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -31,14 +32,19 @@ namespace Gestion_Recommandation
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddMudServices();
-            services.AddHttpClientServices();
 
             services.AddHttpClient("Gestion_Recommandation.Api", client => {
                 client.BaseAddress = new Uri(Configuration["PathApi"]);
-            }).AddHttpMessageHandler<AuthorizationMessageHandler>();
+            });//.AddHttpMessageHandler<AuthorizationMessageHandler>();
+
             services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("Gestion_Recommandation.Api"));
             services.AddTransient<AuthorizationMessageHandler>();
+
+            services.AddAuthorizationCore();
+            services.AddScoped<AuthenticationStateProvider, JwtAuthentificationStateProvider>();
+
+            services.AddMudServices();
+            services.AddHttpClientServices();
             services.AddBlazoredLocalStorage();
         }
 
@@ -58,7 +64,8 @@ namespace Gestion_Recommandation
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            //app.UseAuthorization();
+            app.UseAuthentication();            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

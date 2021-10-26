@@ -27,6 +27,9 @@ namespace Gestion_Recommandation.API.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Application")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Bureau")
                         .HasColumnType("nvarchar(max)");
 

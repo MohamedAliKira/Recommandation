@@ -35,7 +35,7 @@ namespace Gestion_Recommandation
 
             services.AddHttpClient("Gestion_Recommandation.Api", client => {
                 client.BaseAddress = new Uri(Configuration["PathApi"]);
-            });//.AddHttpMessageHandler<AuthorizationMessageHandler>();
+            });
 
             services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("Gestion_Recommandation.Api"));
             services.AddTransient<AuthorizationMessageHandler>();
@@ -44,8 +44,9 @@ namespace Gestion_Recommandation
             services.AddScoped<AuthenticationStateProvider, JwtAuthentificationStateProvider>();
 
             services.AddMudServices();
-            services.AddHttpClientServices();
             services.AddBlazoredLocalStorage();
+            services.AddScoped<IAuthService, HttpAuthService>();
+            services.AddScoped<IRecommandationService, HttpRecommandationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

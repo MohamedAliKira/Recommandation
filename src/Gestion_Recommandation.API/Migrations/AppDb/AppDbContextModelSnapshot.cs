@@ -26,6 +26,9 @@ namespace Gestion_Recommandation.API.Migrations.AppDb
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Bureau")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateCreation")
                         .HasColumnType("datetime2");
 
@@ -64,6 +67,9 @@ namespace Gestion_Recommandation.API.Migrations.AppDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AgentBureau")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AgentSaisie")
                         .HasColumnType("nvarchar(max)");

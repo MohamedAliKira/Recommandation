@@ -20,7 +20,7 @@ namespace Gestion_Recommandation.Pages
 {
     public partial class CreateEditRecom
     {
-        [Parameter] public string Id { get; set; }
+        [Parameter] public int Id { get; set; }
 
         private List<BreadcrumbItem> _breadcrumbItems = new()
         {

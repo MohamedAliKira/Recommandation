@@ -10,7 +10,7 @@ namespace Gestion_Recommandation.API.Services
 {
     public interface IRecommandationService
     {
-        Task<ApiResponse<List<Recommandations>>> GetRecommandationsAsync(string query = null, string userId = null);
+        Task<ApiResponse<PagedList<Recommandations>>> GetRecommandationsAsync(string query = null, string userId = null, int pageNumber = 1, int pageSize = 12);
         Task<ApiResponse<Recommandations>> GetByIdAsync(int Id, string userId);
         Task<ApiResponse<Recommandations>> CreateAsync(Recommandations model);
         Task<ApiResponse<Recommandations>> EditAsync(Recommandations model);
@@ -64,11 +64,13 @@ namespace Gestion_Recommandation.API.Services
             recomm.IdentityRecommandation = model.IdentityRecommandation;
             recomm.InstructionDRH = model.InstructionDRH;
             recomm.Type = model.Type;
+            recomm.Bureau = model.Bureau;
 
             // Insertion de la trace
             var trace = new Trace_Recommandations()
             {
                 AgentSaisie = model.ID_User,
+                AgentBureau = model.Bureau,    
                 DateSaisie = System.DateTime.Now,
                 ID_Recommandations = model.Id,
                 Description = "IdentityRecommandation:" + model.IdentityRecommandation + " | DeLaPart:" + model.DeLaPart + " | InstructionDRH:" + model.InstructionDRH
@@ -104,28 +106,32 @@ namespace Gestion_Recommandation.API.Services
             };
         }
 
-        public async Task<ApiResponse<List<Recommandations>>> GetRecommandationsAsync(string query = null, string userId = null)
+        public async Task<ApiResponse<PagedList<Recommandations>>> GetRecommandationsAsync(string query = null, string userId = null, int pageNumber = 1, int pageSize = 12)
         {
             if (string.IsNullOrWhiteSpace(query))
                 query = "";
-
-            var list = await _context.Recommandations.ToListAsync();
-
-            var recommds = (from p in list
-                            where p.ID_User == userId &&
+            if (pageNumber < 1)
+                pageNumber = 1;
+            if (pageSize < 5)
+                pageSize = 5;
+            if (pageSize > 50)
+                pageSize = 50;
+            
+            var recommds = await (from p in _context.Recommandations
+                                  where p.ID_User == userId &&
                                  (p.NumeroReference.Contains(query) ||
                                   p.DeLaPart.Contains(query) ||
                                   p.Source.Contains(query) ||
                                   p.InstructionDRH.Contains(query) ||
-                                  p.Type.Contains(query) ||
-                                  p.DateReference.ToShortDateString().Contains(query))
-                            orderby p.Id descending
-                            select p).ToList();
-            return new ApiResponse<List<Recommandations>>
+                                  p.Type.Contains(query))
+                                  orderby p.Id descending
+                                  select p).ToArrayAsync();
+            var rslt = new PagedList<Recommandations>(recommds, pageNumber, pageSize);
+            return new ApiResponse<PagedList<Recommandations>>
             {
                 IsSuccess = true,
-                Message = $"Nombre d'enregistrement : {recommds.Count}",
-                Value = recommds
+                Message = "Gets succesfully !",
+                Value = rslt
             };
         }
     }

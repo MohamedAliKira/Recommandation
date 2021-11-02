@@ -19,10 +19,38 @@ namespace Gestion_Recommandation.Pages.Recommandations
 {
     public partial class Recommands
     {
+        [Inject] public NavigationManager Navigation { get; set; }
+        [Inject] IDialogService DialogService { get; set; }
+
         private List<BreadcrumbItem> _breadcrumbItems = new()
         {
             new BreadcrumbItem("Acceuil", "/index"),
             new BreadcrumbItem("Recommndations", "/recommandations", true)
         };
+
+        #region Edit
+        private void EditRecoms(Shared.Models.Recommandations plan)
+        {
+            Navigation.NavigateTo($"/recommandation/form/{plan.Id}");
+        }
+        #endregion
+
+        #region View
+        private void ViewRecom(Shared.Models.Recommandations recom)
+        {
+            var parameters = new DialogParameters
+            {
+                { "RecommandationDetail", recom }
+            };
+            var options = new DialogOptions()
+            {
+                CloseButton = true,
+                MaxWidth = MaxWidth.Small,
+                FullWidth = true
+            };
+
+            DialogService.Show<Components.RecomDialog>($"Recommandation N°: {recom.NumeroReference} du {recom.DateReference.ToShortDateString()}", parameters, options);            
+        }
+        #endregion
     }
 }

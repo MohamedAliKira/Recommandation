@@ -12,18 +12,13 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.JSInterop;
 using Gestion_Recommandation;
-using Gestion_Recommandation.Shared;
 using MudBlazor;
-using Gestion_Recommandation.Components;
-using Gestion_Recommandation.Shared.Models;
 
 namespace Gestion_Recommandation.Components
 {
-    public partial class RecomDialog
+    public partial class DashCard
     {
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-        [Parameter] public Recommandations RecommandationDetail { get; set; }
-        void Submit() => MudDialog.Close(DialogResult.Ok(true));
-        
+        [Parameter] public Shared.Models.Dashbord DashBord { get; set; }
+        [Parameter] public bool IsBusy { get; set; }
     }
 }

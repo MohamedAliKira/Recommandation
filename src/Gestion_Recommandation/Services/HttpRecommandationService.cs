@@ -19,6 +19,7 @@ namespace Gestion_Recommandation.Services
         Task<ApiResponse<Recommandations>> GetByIdAsync(int Id, string userId);
         Task<ApiResponse<Recommandations>> CreateAsync(Recommandations model);
         Task<ApiResponse<Recommandations>> EditAsync(Recommandations model);
+        Task<ApiResponse<IEnumerable<Dashbord>>> DashbordAsync(string bureau);
     }
     public class HttpRecommandationService : IRecommandationService
     {
@@ -51,6 +52,28 @@ namespace Gestion_Recommandation.Services
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<ApiResponse<Recommandations>>();
+                return result;
+            }
+            else
+            {
+                var errorResponse = await response.Content.ReadFromJsonAsync<ApiErrorResponse>();
+                throw new ApiException(errorResponse, response.StatusCode);
+            }
+        }
+
+        public async Task<ApiResponse<IEnumerable<Dashbord>>> DashbordAsync(string bureau)
+        {
+            string requestUri = $"/api/Recommandations/Dashbord?Bureau={bureau}";
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+
+            var token = await _localStorage.GetItemAsync<string>("access_token");
+            requestMessage.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _client.SendAsync(requestMessage);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<ApiResponse<IEnumerable<Dashbord>>>();
                 return result;
             }
             else

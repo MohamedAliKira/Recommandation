@@ -1,8 +1,54 @@
 ﻿@page "/Dashbord"
 @attribute [Authorize]
 
-<h1> Dashbord</h1>
 
-@code {
+<div class="m-3 p-2">
+    <h1> Tableau de bord</h1>
+</div>
+<MudDivider class="my-4" />
 
+
+@if (!string.IsNullOrWhiteSpace(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="my-2" Variant="Variant.Filled">@_errorMessage</MudAlert>
+}
+
+@if (_isBusy)
+{
+    <MudGrid Spacing="2">
+        <MudItem sm="12" md="4" lg="3">
+            <DashCard IsBusy="_isBusy" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <DashCard IsBusy="_isBusy" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <DashCard IsBusy="_isBusy" />
+        </MudItem>
+    </MudGrid>
+}
+else
+{
+    @if (ListDashbord != null)
+    {
+        <MudGrid Spacing="2">
+            @foreach (var dash in ListDashbord)
+            {
+                <MudItem sm="12" md="4" lg="3">
+                    <DashCard DashBord="dash" />
+                </MudItem>
+            }
+        </MudGrid>
+
+        <MudDivider class="my-4" />
+
+        <MudChart ChartType="ChartType.Donut" LegendPosition="Position.Bottom" Width="300px" Height="300px"
+                    InputData="@data" InputLabels="@labels">
+        </MudChart>
+
+    }
+    else
+    {
+        <h3> No Records ...</h3>
+    }
 }

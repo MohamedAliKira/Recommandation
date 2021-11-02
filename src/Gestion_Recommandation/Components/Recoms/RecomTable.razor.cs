@@ -18,7 +18,6 @@ using Gestion_Recommandation.Components;
 using Gestion_Recommandation.Shared.Models;
 using Gestion_Recommandation.Services.Exceptions;
 using Gestion_Recommandation.Services;
-using Gestion_Recommandation.Components.Recoms;
 
 namespace Gestion_Recommandation.Components
 {
@@ -27,16 +26,16 @@ namespace Gestion_Recommandation.Components
         [Inject] public IRecommandationService RecommandationService { get; set; }
         [Inject] public AuthenticationStateProvider AuthenticationState { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
-        [Inject] IDialogService DialogService { get; set; }
+        [Parameter] public EventCallback<Recommandations> OnEditClicked { get; set; }
+        [Parameter] public EventCallback<Recommandations> OnViewClicked { get; set; }
 
         private string _query = string.Empty;
         private MudTable<Recommandations> _table;
-        private bool _isBusy = false;
+        
         private string _errorMessage = string.Empty;
 
         private async Task<TableData<Recommandations>> ServerReloadAsync(TableState state)
-        {
-            _isBusy = true;
+        {            
             System.Threading.Thread.Sleep(3000);
             try
             {
@@ -57,8 +56,7 @@ namespace Gestion_Recommandation.Components
             catch (Exception ex)
             {
                 _errorMessage = ex.Message;
-            }
-            _isBusy = false;
+            }            
             return null;
         }
         private void OnSearch(string query)
@@ -66,28 +64,9 @@ namespace Gestion_Recommandation.Components
             _query = query;
             _table.ReloadServerData();
         }
+        
 
-        private void EditRecom(Recommandations recom)
-        {
-            Navigation.NavigateTo($"/recommandation/form/{recom.Id}");
-        }
-
-        private void ViewRecom(Recommandations recom)
-        {
-            var parameters = new DialogParameters
-            {
-                { "RecommandationDetail", recom }
-            };
-            var options = new DialogOptions() 
-            { 
-                CloseButton = true, 
-                MaxWidth = MaxWidth.Small, 
-                FullWidth = true 
-            };
-
-            DialogService.Show<RecomDialog>($"Recommandation N°: {recom.NumeroReference} du {recom.DateReference.ToShortDateString()}", parameters, options);
-            _isBusy = false;
-        }
+        
 
     }
 }

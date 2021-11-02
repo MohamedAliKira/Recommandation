@@ -1,0 +1,41 @@
+﻿@namespace Gestion_Recommandation.Components
+
+@if (IsBusy)
+{
+    <MudCard Elevation="0">
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="200px" />
+        <MudCardContent>
+            <MudSkeleton Width="30%" Height="42px;" />
+            <MudSkeleton Width="80%" />
+            <MudSkeleton Width="100%" />
+        </MudCardContent>
+        <MudCardActions>
+            <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
+            <MudSkeleton Width="105px" Height="40px" Class="ml-3" />
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudCard Elevation="25" Class="rounded-lg pb-4">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5" Align="Align.Center">@DashBord.Bureau</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <div class="d-flex justify-center">
+                <MudText Typo="Typo.h4" Color="Color.Secondary">@DashBord.Count</MudText>
+
+            </div>
+            <MudList Class="mx-auto mt-4" Style="width:300px;">
+                <MudListItem Icon="@Icons.Material.Filled.ArtTrack">
+                    @(DashBord.Count == 1 ? "Recommandation": "Recommandations")
+                </MudListItem>
+            </MudList>
+        </MudCardContent>
+    </MudCard>
+}
+
+
+

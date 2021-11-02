@@ -57,5 +57,15 @@ namespace Gestion_Recommandation.API.Controllers
             var result = await _recommandationService.EditAsync(model);
             return Ok(result);
         }
+
+
+
+        //api/Recommandations/Dashbord?Bureau=bureau
+        [HttpGet("Dashbord")]
+        public async Task<IActionResult> Dashbord(string Bureau)
+        {
+            var result = await _recommandationService.DashbordAsync(Bureau);
+            return Ok(result);
+        }
     }
 }

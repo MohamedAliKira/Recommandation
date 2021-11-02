@@ -47,7 +47,7 @@ namespace Gestion_Recommandation.Components
                     await Storage.SetItemAsync("expiry_date", response.Value.ExpiryDate);
                     await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
-                    Navigation.NavigateTo("/");
+                    Navigation.NavigateTo("/index");
                 }
                 else
                 {

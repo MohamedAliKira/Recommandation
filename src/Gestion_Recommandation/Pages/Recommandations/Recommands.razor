@@ -2,6 +2,7 @@
 @attribute [Authorize]
 
 <RecomPage Title="Mes Recommndations" BreadcrumbItems="_breadcrumbItems">
-    <RecomTable />
+    <RecomTable OnEditClicked="EditRecoms"
+                OnViewClicked="ViewRecom"/>
 </RecomPage>
 

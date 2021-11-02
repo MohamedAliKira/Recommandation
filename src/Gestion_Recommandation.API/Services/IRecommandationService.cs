@@ -14,6 +14,7 @@ namespace Gestion_Recommandation.API.Services
         Task<ApiResponse<Recommandations>> GetByIdAsync(int Id, string userId);
         Task<ApiResponse<Recommandations>> CreateAsync(Recommandations model);
         Task<ApiResponse<Recommandations>> EditAsync(Recommandations model);
+        Task<ApiResponse<IEnumerable<Dashbord>>> DashbordAsync(string bureau);
     }
 
     public class RecommandationService : IRecommandationService
@@ -43,6 +44,30 @@ namespace Gestion_Recommandation.API.Services
                 IsSuccess = true,
                 Message = "création faite avec success !",
                 Value = model
+            };
+        }
+
+        public async Task<ApiResponse<IEnumerable<Dashbord>>> DashbordAsync(string bureau)
+        {
+            var rslt = await (from p in _context.Recommandations
+                             group p by p.Bureau into g
+                             select new
+                             {
+                                 Bureau = g.Key,
+                                 Count = g.Count()
+                             }).ToListAsync();
+            var result = new List<Dashbord>();
+            foreach (var item in rslt)
+            {
+                Dashbord _item = new Dashbord { Bureau = item.Bureau, Count = item.Count };
+                result.Add(_item);
+            }
+
+            return new ApiResponse<IEnumerable<Dashbord>>
+            {
+                IsSuccess = true,
+                Message = "",
+                Value = result
             };
         }
 

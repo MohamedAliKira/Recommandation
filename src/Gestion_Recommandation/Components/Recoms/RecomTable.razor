@@ -7,55 +7,45 @@
     <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="my-2">@_errorMessage</MudAlert>
 }
 
-@if (_isBusy)
-{
-    <MudSkeleton />
-    <MudSkeleton Animation="Animation.False" />
-    <MudSkeleton Animation="Animation.Wave" />
-}
-else
-{
-    <MudTable ServerData="@(new Func<TableState, Task<TableData<Recommandations>>>(ServerReloadAsync))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<Recommandations>>>(ServerReloadAsync))"
           Dense="true" Hover="true" @ref="_table">
-        <ToolBarContent>
-            <MudSpacer />
-            <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
+    <ToolBarContent>
+        <MudSpacer />
+        <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
                       AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh><MudTableSortLabel SortLabel="nr_field" T="Recommandations">N° Référence</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="date_field" T="Recommandations">Date Référence</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="from_field" T="Recommandations">De la part</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="source_field" T="Recommandations">Source</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="identite_field" T="Recommandations">Identité Recommandation</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="actions_field" T="Recommandations">Actions</MudTableSortLabel></MudTh>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortLabel="nr_field" T="Recommandations">N° Référence</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="date_field" T="Recommandations">Date Référence</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="from_field" T="Recommandations">De la part</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="source_field" T="Recommandations">Source</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="identite_field" T="Recommandations">Identité Recommandation</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="actions_field" T="Recommandations">Actions</MudTableSortLabel></MudTh>
 
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Nr">@context.NumeroReference</MudTd>
-            <MudTd DataLabel="Date">@context.DateReference.ToShortDateString()</MudTd>
-            <MudTd DataLabel="From">@context.DeLaPart</MudTd>
-            <MudTd DataLabel="Source">@context.Source</MudTd>
-            <MudTd DataLabel="Identite">@context.IdentityRecommandation</MudTd>
-            <MudTd DataLabel="Actions">
-                <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Preview" aria-label="view" OnClick="()=>ViewRecom(context)"/>
-                <MudFab Color="Color.Secondary" Icon="@Icons.Material.Filled.Edit" aria-label="edit" OnClick="()=>EditRecom(context)"/>
-                @*<MudIconButton Icon="@Icons.Material.Filled.Preview" Color="Color.Warning"
-                           OnClick="()=>ViewRecom(context)" />
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary"
-                           OnClick="()=>EditRecom(context)" />*@
-            </MudTd>
-        </RowTemplate>
-        <NoRecordsContent>
-            <MudText>Pas de recommandations !</MudText>
-        </NoRecordsContent>
-        <LoadingContent>
-            <MudText>Chargement...</MudText>
-        </LoadingContent>
-        <PagerContent>
-            <MudTablePager />
-        </PagerContent>
-    </MudTable>
-}
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.NumeroReference</MudTd>
+        <MudTd DataLabel="Date">@context.DateReference.ToShortDateString()</MudTd>
+        <MudTd DataLabel="From">@context.DeLaPart</MudTd>
+        <MudTd DataLabel="Source">@context.Source</MudTd>
+        <MudTd DataLabel="Identite">@context.IdentityRecommandation</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudIconButton Icon="@Icons.Material.Filled.Preview" Color="Color.Success"
+                           OnClick="async ()=>await OnViewClicked.InvokeAsync(context)" />
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary"
+                           OnClick="async ()=>await OnEditClicked.InvokeAsync(context)" />
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText>Pas de recommandations !</MudText>
+    </NoRecordsContent>
+    <LoadingContent>
+        <MudText>Chargement...</MudText>
+    </LoadingContent>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
 
 

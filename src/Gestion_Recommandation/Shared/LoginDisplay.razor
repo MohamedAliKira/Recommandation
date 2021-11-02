@@ -9,7 +9,7 @@
         <MudMenu FullWidth="true">
             <ActivatorContent>
                 <MudChip Icon="@Icons.Material.Filled.Person" Color="Color.Primary" Direction="Direction.Left" OffsetY="true">
-                    Welcome @context.User.Claims.Where(c => c.Type == "Identite").Select(c => c.Value).SingleOrDefault() 
+                    Bienvenue @context.User.Claims.Where(c => c.Type == "Identite").Select(c => c.Value).SingleOrDefault() 
                     (@context.User.Claims.Where(c => c.Type == "Bureau").Select(c => c.Value).SingleOrDefault()) !
                 </MudChip>
             </ActivatorContent>
@@ -20,7 +20,7 @@
     </Authorized>
     <NotAuthorized>
         <MudButton Variant="Variant.Outlined" Color="Color.Info"
-                   StartIcon="@Icons.Material.Filled.Login" OnClick='() => Navigation.NavigateTo("/authentication/login")'>Login</MudButton>
+                   StartIcon="@Icons.Material.Filled.Login" OnClick='() => Navigation.NavigateTo("/")'>Login</MudButton>
     </NotAuthorized>
 </AuthorizeView>
 
@@ -33,6 +33,6 @@
         await Storage.RemoveItemAsync("expiry_date");
 
         await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        Navigation.NavigateTo("/authentication/login");
+        Navigation.NavigateTo("/");
     }
 }

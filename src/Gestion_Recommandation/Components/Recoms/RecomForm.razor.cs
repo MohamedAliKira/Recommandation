@@ -46,10 +46,10 @@ namespace Gestion_Recommandation.Components
             {
                 var user = (await AuthenticationState.GetAuthenticationStateAsync()).User;
                 string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
-                string Identite = user.Claims.Where(c => c.Type == "Identite").Select(c => c.Value).SingleOrDefault() + " ("+ user.Claims.Where(c => c.Type == "Bureau").Select(c => c.Value).SingleOrDefault() +")";
+                string office = user.Claims.Where(c => c.Type == "Bureau").Select(c => c.Value).SingleOrDefault();
 
                 _model.ID_User = userId;
-                _model.Bureau = Identite;
+                _model.Bureau = office;
 
                 var result =(!_isEditMode) ? await RecommandationService.CreateAsync(_model) : await RecommandationService.EditAsync(_model);
                 if (result.IsSuccess)

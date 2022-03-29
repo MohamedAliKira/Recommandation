@@ -36,24 +36,30 @@ namespace Gestion_Recommandation.API.Migrations.AppDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeLaPart")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ID_User")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdentityRecommandation")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InstructionDRH")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NumeroReference")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Source")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

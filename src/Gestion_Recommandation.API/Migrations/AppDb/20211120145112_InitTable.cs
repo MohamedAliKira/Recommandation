@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Gestion_Recommandation.API.Migrations.AppDb
 {
-    public partial class init : Migration
+    public partial class InitTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,13 +13,13 @@ namespace Gestion_Recommandation.API.Migrations.AppDb
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NumeroReference = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumeroReference = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateReference = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeLaPart = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Source = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdentityRecommandation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    InstructionDRH = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeLaPart = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Source = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdentityRecommandation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InstructionDRH = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreation = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Bureau = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ID_User = table.Column<string>(type: "nvarchar(max)", nullable: true)

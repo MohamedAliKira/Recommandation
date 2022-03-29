@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Gestion_Recommandation.API.Migrations
 {
-    public partial class init : Migration
+    public partial class InitIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace Gestion_Recommandation.API.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Matricule = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bureau = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Identite = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Application = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

@@ -47,6 +47,7 @@ namespace Gestion_Recommandation
             services.AddBlazoredLocalStorage();
             services.AddScoped<IAuthService, HttpAuthService>();
             services.AddScoped<IRecommandationService, HttpRecommandationService>();
+            services.AddScoped<IAdminService, HttpAdminService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

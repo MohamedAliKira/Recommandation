@@ -16,7 +16,7 @@ namespace Gestion_Recommandation.API.Services
     public interface IAuthService
     {
         Task<ApiResponse<LoginResult>> LoginAsync(LoginRequest loginRequest);
-        Task<ApiResponse> RegisterAsync(RegisterRequest registerRequest);
+        Task<ApiResponse> RegisterAsync(RegisterRequest registerRequest);       
     }
 
     public class AuthService : IAuthService
@@ -28,6 +28,7 @@ namespace Gestion_Recommandation.API.Services
             _userManager = userManager;
             _config = config;
         }
+               
         public async Task<ApiResponse<LoginResult>> LoginAsync(LoginRequest loginRequest)
         {
             if (loginRequest == null)
@@ -59,7 +60,7 @@ namespace Gestion_Recommandation.API.Services
                 new Claim("Bureau", user.Bureau),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 //new Claim("Role", loginRequest.Email),
-                new Claim("Identite", user.FirstName),
+                new Claim("Identite", user.Identite),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["AuthSettings:Key"]));
@@ -100,9 +101,10 @@ namespace Gestion_Recommandation.API.Services
             {
                 Bureau = registerRequest.Bureau,
                 Email = registerRequest.Email,
-                FirstName = registerRequest.FirstName,
+                Identite = registerRequest.FirstName,
                 Matricule = registerRequest.Matricule,
-                UserName = registerRequest.Email
+                UserName = registerRequest.Email,
+                Application = "GestionRecommandation"
             };
 
             var result = await _userManager.CreateAsync(userIdentity, registerRequest.Password);

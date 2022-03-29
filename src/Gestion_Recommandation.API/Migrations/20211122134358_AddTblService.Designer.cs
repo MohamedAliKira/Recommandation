@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gestion_Recommandation.API.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20211026104054_init")]
-    partial class init
+    [Migration("20211122134358_AddTblService")]
+    partial class AddTblService
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace Gestion_Recommandation.API.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Identite")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -96,6 +96,170 @@ namespace Gestion_Recommandation.API.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Gestion_Recommandation.Shared.Models.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Libelle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tuttelle")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Service");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Libelle = "DRH",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Libelle = "SDP",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Libelle = "SDC",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Libelle = "SDRS",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Libelle = "SCPN",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Libelle = "BIC",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Libelle = "BI",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Libelle = "BAG",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Libelle = "BFA",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Libelle = "BPF",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Libelle = "BCAA",
+                            Tuttelle = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Libelle = "BESM",
+                            Tuttelle = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Libelle = "BGC",
+                            Tuttelle = 2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Libelle = "BDA",
+                            Tuttelle = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Libelle = "BPM",
+                            Tuttelle = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Libelle = "BAT",
+                            Tuttelle = 3
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Libelle = "BCM",
+                            Tuttelle = 3
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Libelle = "BRP",
+                            Tuttelle = 3
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Libelle = "BAJ",
+                            Tuttelle = 3
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Libelle = "BS",
+                            Tuttelle = 4
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Libelle = "BRAA",
+                            Tuttelle = 4
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Libelle = "BSF",
+                            Tuttelle = 4
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Libelle = "BEP",
+                            Tuttelle = 4
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Libelle = "BPSY",
+                            Tuttelle = 4
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

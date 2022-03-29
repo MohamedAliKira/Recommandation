@@ -72,6 +72,7 @@ namespace Gestion_Recommandation.API
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IRecommandationService, RecommandationService>();
+            services.AddScoped<IAdminService, AdminService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

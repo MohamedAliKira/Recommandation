@@ -1,7 +1,7 @@
 ﻿@namespace Gestion_Recommandation.Components
 
 <EditForm Model="_model" OnValidSubmit="RegisterUserAsync">
- <DataAnnotationsValidator />
+    <DataAnnotationsValidator />
     <MudCard>
         <MudCardHeader>
             <CardHeaderContent>
@@ -10,26 +10,37 @@
             </CardHeaderContent>
         </MudCardHeader>
         <MudCardContent>
-            <MudTextField @bind-Value="@_model.Matricule" Label="Matricule" Variant="Variant.Outlined" Adornment="Adornment.Start"  HelperText="Required"
-                AdornmentIcon="@Icons.Material.Filled.Person" />
+            <MudTextField @bind-Value="@_model.Matricule" Label="Matricule" Variant="Variant.Outlined" Adornment="Adornment.Start" HelperText="Required"
+                          AdornmentIcon="@Icons.Material.Filled.Person" />
 
-                <MudTextField @bind-Value="@_model.FirstName" Label="Identite" Variant="Variant.Outlined" Adornment="Adornment.Start"  HelperText="Required"
-                AdornmentIcon="@Icons.Material.Filled.Person" />
+            <MudTextField @bind-Value="@_model.FirstName" Label="Identite" Variant="Variant.Outlined" Adornment="Adornment.Start" HelperText="Required"
+                          AdornmentIcon="@Icons.Material.Filled.Person" />
 
-                <MudTextField @bind-Value="@_model.Bureau" Label="Bureau" Variant="Variant.Outlined" Adornment="Adornment.Start"  HelperText="Required"
-                AdornmentIcon="@Icons.Material.Filled.LocalPostOffice" />
+            <MudSelect T="Service" @bind-Value="@_service" Label="Bureau" Variant="Variant.Outlined" OffsetY="true" AnchorOrigin="Origin.BottomCenter" HelperText="Required">
+                @if(_services == null) 
+                {
+                    <MudSelectItem Value="@(new Service() { Id = 0, Libelle="En Cours", Tuttelle =0 })" />
+                }
+                else 
+                {
+                    @foreach (var item in _services)
+                    {
+                        <MudSelectItem Value="@(item.Libelle)" />
+                    }
+                }
+            </MudSelect>
 
-                <MudTextField @bind-Value="@_model.Email" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.Start"  HelperText="Required"
-                AdornmentIcon="@Icons.Material.Filled.Email" />
+            <MudTextField @bind-Value="@_model.Email" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.Start" HelperText="Required"
+                          AdornmentIcon="@Icons.Material.Filled.Email" />
 
-                <MudTextField @bind-Value="@_model.Password" Label="Mot de passe" Variant="Variant.Outlined" InputType="@PasswordInput" HelperText="Required"
-                Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" />
+            <MudTextField @bind-Value="@_model.Password" Label="Mot de passe" Variant="Variant.Outlined" InputType="@PasswordInput" HelperText="Required"
+                          Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" />
 
-                <MudTextField @bind-Value="@_model.ConfirmPassword" Label="Confirm Mot de passe" Variant="Variant.Outlined" InputType="@ConfirmPasswordInput" HelperText="Required"
-                Adornment="Adornment.End" AdornmentIcon="@ConfirmPasswordInputIcon" OnAdornmentClick="ButtonTestclickConfirm" />
+            <MudTextField @bind-Value="@_model.ConfirmPassword" Label="Confirm Mot de passe" Variant="Variant.Outlined" InputType="@ConfirmPasswordInput" HelperText="Required"
+                          Adornment="Adornment.End" AdornmentIcon="@ConfirmPasswordInputIcon" OnAdornmentClick="ButtonTestclickConfirm" />
 
-         
-            
+
+
             <br />
             <ValidationSummary />
 
@@ -38,7 +49,7 @@
                 <MudAlert Severity="Severity.Error" Class="my-2" Variant="Variant.Filled">
                     @_errorMessage
                 </MudAlert>
-            }            
+            }
         </MudCardContent>
 
         <MudCardActions>

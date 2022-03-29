@@ -1,20 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.JSInterop;
-using Gestion_Recommandation;
-using Gestion_Recommandation.Shared;
 using MudBlazor;
-using Gestion_Recommandation.Components;
 using Gestion_Recommandation.Services;
 using Gestion_Recommandation.Shared.Models;
 using Gestion_Recommandation.Services.Exceptions;
@@ -24,12 +12,20 @@ namespace Gestion_Recommandation.Components
     public partial class RegisterForm
     {
         [Inject] public IAuthService AuthenticationService { get; set; }
+        [Inject] public IAdminService AdminService { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
 
 
         private RegisterRequest _model = new();
         private bool _isBusy = false;
         private string _errorMessage = string.Empty;
+        private IEnumerable<Service> _services;
+        private Service _service;
+
+        protected override async Task OnInitializedAsync()
+        {
+            _services = (await AdminService.GetAllServicesAsync()).Value;
+        }
 
         private async Task RegisterUserAsync()
         {
@@ -56,6 +52,8 @@ namespace Gestion_Recommandation.Components
         }
         private void RedirectToLogin() => Navigation.NavigateTo("/");
 
+
+        // Customisation
         bool isShow;
         InputType PasswordInput = InputType.Password;
         string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;

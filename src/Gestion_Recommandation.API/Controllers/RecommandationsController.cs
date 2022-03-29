@@ -15,15 +15,18 @@ namespace Gestion_Recommandation.API.Controllers
     public class RecommandationsController : ControllerBase
     {
         private readonly IRecommandationService _recommandationService;
-        public RecommandationsController(IRecommandationService recommandationService)
+        private readonly IAuthService _authService;
+        public RecommandationsController(IRecommandationService recommandationService, IAuthService authService)
         {
             _recommandationService = recommandationService;
+            _authService = authService;
         }
 
         //api/AllRecommandations?query={query}&userId={userId}&pageNumber={pageNumber}&pageSize={pageSize}
         [HttpGet("AllRecommandations")]
         public async Task<IActionResult> GetAsync(string query, string userId, int pageNumber, int pageSize)
         {
+            //var userId1 = _authService.GetUserId();
             var result = await _recommandationService.GetRecommandationsAsync(query, userId, pageNumber, pageSize);
             if (result != null)
                 return Ok(result);
